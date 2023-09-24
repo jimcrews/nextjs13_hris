@@ -20,7 +20,7 @@ export default function ProfilePage() {
     return (
         <section className="flex flex-col gap-6">
             
-        {!session?.user ? (
+        {session?.user ? (
             <>
             <UserCard user={session?.user} pagetype={"Profile"} />
 
