@@ -21,7 +21,7 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
     const [error, setError] = useState("");
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,12 +39,10 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
                 callbackUrl,
             });
 
-            setLoading(false);
-
-            console.log(res);
             if (!res?.error) {
                 router.push(callbackUrl);
             } else {
+                setLoading(false);
                 setError("invalid email or password");
             }
         } catch (error: any) {
@@ -102,6 +100,7 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
                     </div>
 
                     <Button
+                        disabled={loading}
                         variant="outline"
                         className="h-18 w-full flex justify-center items-center mb-2"
                         onClick={() => signIn("google", { callbackUrl })}
@@ -115,6 +114,7 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
                         Continue with Google
                     </Button>
                     <Button
+                        disabled={loading}
                         variant="outline"
                         className="h-18 w-full flex justify-center items-center"
                         onClick={() => signIn("github", { callbackUrl })}
@@ -132,11 +132,24 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
                         <p className="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
 
-                    <Link href="/register"
+                    {loading ? (
+                    <div 
+                    className="text-center inline-block px-7 py-4 bg-gray-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md w-full"
+                >
+                    Register
+                </div>
+                    ): (
+                        <Link 
+                        href="/register"
+                        
                         className="text-center inline-block px-7 py-4 bg-gray-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                     >
                         Register
                     </Link>
+                    )}
+
+
+
                 </>
             )}
 
