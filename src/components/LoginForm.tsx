@@ -25,6 +25,9 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!formValues.email || !formValues.password) {
+            return;
+        }
         try {
             setLoading(true);
             setFormValues({ email: "", password: "" });
@@ -65,7 +68,6 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
             )}
             <div className="mb-6">
                 <input
-                    required
                     type="email"
                     name="email"
                     value={formValues.email}
@@ -76,7 +78,6 @@ export const LoginForm = ({ includeOauthOptions }: Props) => {
             </div>
             <div className="mb-6">
                 <input
-                    required
                     type="password"
                     name="password"
                     value={formValues.password}
