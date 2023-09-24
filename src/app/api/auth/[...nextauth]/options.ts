@@ -4,9 +4,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from "bcryptjs";
 
-import User from '../../../../models/user'
-import GoogleUser from '../../../../models/googleUser'
-import { connectToDB } from '../../../../utils/database';
+import User from '@/models/user'
+import GoogleUser from '@/models/GoogleUser'
+import { connectToDB } from '@/utils/database';
 
 export const options: NextAuthOptions = {
   pages: {
